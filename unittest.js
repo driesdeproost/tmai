@@ -100,7 +100,7 @@ mermaids: leech 3 from fakirs\n\
 witches: action actw. build g3\n\
 dwarves: upgrade e7 to sh\n\
 witches: decline 3 from dwarves\n\
-mermaids: advance ship\n\
+mermaids: advance shipping\n\
 halflings: build e10\n\
 fakirs: action bon2. +air\n\
 witches: action bon1. transform h4 to green\n\
@@ -121,7 +121,7 @@ witches: action actw. build d1\n\
 mermaids: leech 1 from witches\n\
 dwarves: leech 3 from fakirs\n\
 dwarves: action bon1. build d4\n\
-mermaids: advance ship\n\
+mermaids: advance shipping\n\
 halflings: send p to earth\n\
 fakirs: leech 1 from dwarves\n\
 fakirs: burn 4. action act5. build b2\n\
@@ -324,7 +324,7 @@ dwarves: dig 1. transform a12 to gray\n\
 mermaids: convert 1p to 1c. convert 4pw to 4c. upgrade i2 to sh. +tw4\n\
 halflings: dig 2. transform i12 to brown\n\
 fakirs: convert 1p to 1w. build b1\n\
-witches: burn 1. convert 4pw to 4c. advance ship\n\
+witches: burn 1. convert 4pw to 4c. advance shipping\n\
 dwarves: convert p to w. dig 1. transform i11 to green\n\
 mermaids: send p to water\n\
 halflings: dig 2. transform i11 to black\n\
@@ -433,7 +433,7 @@ dwarves: leech 1 from halflings\n\
 dwarves: build f4\n\
 mermaids: upgrade d5 to tp\n\
 chaosmagicians: leech 1 from witches\n\
-chaosmagicians: advance ship\n\
+chaosmagicians: advance shipping\n\
 witches: leech 3 from mermaids\n\
 halflings: build g5\n\
 dwarves: leech 1 from halflings\n\
@@ -604,7 +604,7 @@ mermaids: upgrade e2 to tp\n\
 witches: decline 7 from mermaids\n\
 chaosmagicians: leech 1 from mermaids\n\
 chaosmagicians: send p to fire\n\
-halflings: advance ship\n\
+halflings: advance shipping\n\
 witches: advance shipping\n\
 dwarves: upgrade g6 to tp\n\
 mermaids: action act3\n\
@@ -727,7 +727,7 @@ chaosmagicians action BON1. build D7\n\
 nomads burn 3. action ACT4\n\
 Round 2, turn 2\n\
 swarmlings build I4\n\
-chaosmagicians advance ship\n\
+chaosmagicians advance shipping\n\
 nomads action ACTN. build E6\n\
 Round 2, turn 3\n\
 swarmlings action ACTS. Upgrade I4 to TP. +TW7\n\
@@ -748,7 +748,7 @@ chaosmagicians income_for_faction\n\
 nomads income_for_faction\n\
 swarmlings income_for_faction\n\
 Round 3, turn 1\n\
-chaosmagicians advance ship\n\
+chaosmagicians advance shipping\n\
 nomads send p to WATER\n\
 swarmlings 3 action ACT6. transform I6 to blue. build C1\n\
 Round 3, turn 2\n\
@@ -813,7 +813,7 @@ nomads 1 1 convert 1PW to 1C. upgrade B2 to TP\n\
 swarmlings Leech 1 from nomads\n\
 swarmlings action ACTS. Upgrade A2 to TP. +TW3\n\
 Round 4, turn 7\n\
-nomads advance ship\n\
+nomads advance shipping\n\
 chaosmagicians Leech 1 from nomads\n\
 swarmlings send p to EARTH\n\
 Round 4, turn 8\n\
@@ -831,7 +831,7 @@ nomads 1 action ACT5. build F5\n\
 swarmlings send p to Air\n\
 chaosmagicians Leech 1 from nomads\n\
 Round 5, turn 2\n\
-chaosmagicians advance ship\n\
+chaosmagicians advance shipping\n\
 nomads 2 build B1\n\
 swarmlings -1 Leech 2 from nomads\n\
 swarmlings action act4\n\
@@ -869,7 +869,7 @@ swarmlings 3 dig 1. build F2\n\
 nomads -2 Leech 3 from swarmlings\n\
 Round 5, turn 8\n\
 chaosmagicians pass BON3\n\
-nomads advance ship\n\
+nomads advance shipping\n\
 swarmlings convert pw to c. pass BON10\n\
 nomads pass BON6\n\
 Round 6 income\n\
@@ -889,7 +889,7 @@ nomads 1 1 upgrade A5 to TP. convert 1PW to 1C\n\
 chaosmagicians Leech 1 from nomads\n\
 swarmlings Decline 2 from chaosmagicians\n\
 swarmlings Leech 1 from nomads\n\
-swarmlings advance ship\n\
+swarmlings advance shipping\n\
 Round 6, turn 3\n\
 chaosmagicians convert 1PW to 1C. send p to fire\n\
 nomads 3 action ACTN. build B3\n\
@@ -914,7 +914,7 @@ nomads pass\n\
 swarmlings action ACT2\n\
 Round 6, turn 7\n\
 chaosmagicians action FAV6. +AIR. convert 1PW to 1C\n\
-swarmlings advance ship\n\
+swarmlings advance shipping\n\
 Round 6, turn 8\n\
 chaosmagicians pass\n\
 swarmlings 5 Convert 2pw to 2c. convert 3w to 3c. upgrade C1 to SA. +FAV12\n\

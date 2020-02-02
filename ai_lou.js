@@ -241,9 +241,9 @@ AILou.prototype.doAction = function(playerIndex, callback) {
     var actionCoin = [];
     var coin = 0;
     var bonPower = 0;
-    if(actionPass.bontile == T_BON_3PW_SHIP ||
+    if(actionPass.bontile == T_BON_3PW_SHIPPING ||
        actionPass.bontile == T_BON_3PW_1W  ||
-       actionPass.bontile == T_BON_PASSSHIPVP_3PW) bonPower = 3;
+       actionPass.bontile == T_BON_PASSSHIPPINGVP_3PW) bonPower = 3;
     var result = AILou.convertPower(playerIndex, coin, actionCoin, bonPower);
     cantPass = result[0];
     coin = result[1];
@@ -465,9 +465,9 @@ AILou.prototype.updateScoreActionValues_ = function(player, roundnum) {
     }
   };
 
-  // make the num_ship (can be 1,2,3), except for the given power actions
-  var makeShipping = function(num_ship, pow_7c, pow_2w, pow_dig1, pow_dig2) {
-    if(player.shipping == num_ship-1) {
+  // make the num_shipping (can be 1,2,3), except for the given power actions
+  var makeShipping = function(num_shipping, pow_7c, pow_2w, pow_dig1, pow_dig2) {
+    if(player.shipping == num_shipping-1) {
       s.shipping += 10;
       // But it should still do these first
       if(pow_7c > 0) s.specific[A_POWER_7C] = player.c > 10 ? 4 : 12 + pow_7c;
@@ -602,9 +602,9 @@ AILou.prototype.updateScoreActionValues_ = function(player, roundnum) {
     s.bridge = -50;  // rarely build bridges
     s.forbridge = -50;
     if(game.finalscoring == 2) s.b_sh += 4;
-    //increase shipping for shipVP bonus
+    //increase shipping for shippingVP bonus
     s.shipping += player.shipping;
-    if (player.bonustile[T_BON_PASSSHIPVP_3PW] || game.bonustiles[T_BON_PASSSHIPVP_3PW]) {
+    if (player.bonustile[T_BON_PASSSHIPPINGVP_3PW] || game.bonustiles[T_BON_PASSSHIPPINGVP_3PW]) {
       if(player.shipping < 3) s.shipping += 3;
       if(player.shipping >= 3 && roundnum > 4) s.shipping += 6;
     }
@@ -656,11 +656,11 @@ AILou.prototype.updateScoreActionValues_ = function(player, roundnum) {
     if(built_sh(player) == 1 && built_te(player) == 0) s.b_te += roundnum+0.5;
     s.t_tw += 5;  //get extra 5VP for making town
     s.bridge -= 2;  //avoid unneeded bridge from E9-D11 in F&I World
-    if(roundnum >= 3 && player.bonustile == T_BON_3PW_SHIP) makeShipping(1,0,0,0,0);
+    if(roundnum >= 3 && player.bonustile == T_BON_3PW_SHIPPING) makeShipping(1,0,0,0,0);
     if(roundnum >= 4 && game.finalcoring != 2) makeTemple(2,0,0,0,0);
   }
 
-  //repairs needed; build TE (75%) two TE to get the 5PW; ENG_BRIDGE fix, not ship
+  //repairs needed; build TE (75%) two TE to get the 5PW; ENG_BRIDGE fix, not shipping
   if(player.faction == F_ENGINEERS) {
     s.w += 0.5; //do NOT make this number any higher. Setting it to += 1 makes engineers build nothing anymore...
     if(roundnum >= 5) s.conbridge = 6;
@@ -769,7 +769,7 @@ AILou.prototype.updateScoreActionValues_ = function(player, roundnum) {
   }
 
   if(player.faction == F_SHAPESHIFTERS) {
-    if(player.bonustile == T_BON_3PW_SHIP || player.bonustile == T_BON_PASSDVP_2C) {
+    if(player.bonustile == T_BON_3PW_SHIPPING || player.bonustile == T_BON_PASSDVP_2C) {
       makeTemple(1,0,0,0,0);
     } else if(player.bonustile == T_BON_PASSSHSAVP_2W) {
       makeSHEssential(0, 0, 0, 0);
@@ -865,7 +865,7 @@ Rating	Name	        Games
 1074	darklings		5862	build 3-4D, P bonus, build TE soon
 1044	chaosmagicians	5671	build TE/SA, four tiles 1E, 1F, 2A, 2E
 1040	nomads		4988	build TE/2TP/SH, tile 1E, bonus 2W, SH start
-1031	mermaids		4335	build 3D+TP, TE soon, tile 1E, ship ship track/nonus
+1031	mermaids		4335	build 3D+TP, TE soon, tile 1E, shipping ship track/nonus
 1029	cultists		2859	build TE, tile 1E
 1027	witches		4506	build 4D/ SH, bonus 2W, SH start
 1021	swarmlings		4290	build 3D+TE/ SH+TE, tile 1E, 1A
@@ -894,20 +894,20 @@ Rating	Name	        Games
  if(player.faction == F_FAKIRS || player.faction == F_DWARVES
    || player.faction == F_RIVERWALKERS || roundnum < 6 ) {
  } else {
-  var reserveOneShip = 0;
-  var reserveTwoShip = 0;
-  var reserveThreeShip = 0;
+  var reserveOneShipping = 0;
+  var reserveTwoShipping = 0;
+  var reserveThreeShipping = 0;
   var reserveTotal = 0;
   var scoreNow = [];
-  var scoreShip1 = [];
-  var scoreShip2 = [];
-  var scoreShip3 = [];
+  var scoreShipping1 = [];
+  var scoreShipping2 = [];
+  var scoreShipping3 = [];
   var scoreProjection = [];
   var xplayerp = player.p;
   var xplayerc = player.c;
   var xplayers = player.shipping;
   var adjustCoin = 0;
-  var shipVP = 0;
+  var shippingVP = 0;
 
   //get more coin if needed
   if((player.c < 4) && (player.getFaction().canTakeAction(player, A_POWER_7C, game))) {
@@ -921,51 +921,51 @@ Rating	Name	        Games
 
   //determine value of more shipping
   if(player.p > 0 && player.c > (3-adjustCoin) && player.shipping < 3) {
-    //if(AILou.info) addLog('SHIP: AI endship for: ' + logPlayerNameFun(player) );
+    //if(AILou.info) addLog('SHIPPING: AI endshipping for: ' + logPlayerNameFun(player) );
     scoreProjection = projectEndGameScores();
     scoreNow = scoreProjection[player.index];
-    if(AILou.info) addLog('SHIP: AI endship scoreNow: ' + scoreNow);
+    if(AILou.info) addLog('SHIPPING: AI endshipping scoreNow: ' + scoreNow);
     player.p--;
     player.c -= 4;
     player.shipping++;
-    shipVP = player.shipping+1;
+    shippingVP = player.shipping+1;
     scoreProjection = projectEndGameScores();
-    scoreShip1 = scoreProjection[player.index];
-    scoreShip1[0] += shipVP;
-    if(AILou.info) addLog('SHIP: AI scoreShip1 num_'+ player.shipping +': ' + scoreShip1);
-    if (scoreShip1[0] > (scoreNow[0] + 6)) {
-      reserveOneShip = scoreShip1[0] - scoreNow[0];
+    scoreShipping1 = scoreProjection[player.index];
+    scoreShipping1[0] += shippingVP;
+    if(AILou.info) addLog('SHIPPING: AI scoreShipping1 num_'+ player.shipping +': ' + scoreShipping1);
+    if (scoreShipping1[0] > (scoreNow[0] + 6)) {
+      reserveOneShipping = scoreShipping1[0] - scoreNow[0];
     }
     if (player.p > 0 && player.c > (3-adjustCoin)  && player.shipping < 3) {
       player.p--;
       player.c -= 4;
       player.shipping++;
-      shipVP = player.shipping+1;
+      shippingVP = player.shipping+1;
       scoreProjection = projectEndGameScores();
-      scoreShip2 = scoreProjection[player.index];
-      scoreShip2[0] += shipVP;
-      if(AILou.info) addLog('SHIP: AI scoreShip2 num_'+ player.shipping +': ' + scoreShip2);
-      if (scoreShip2[0] > (scoreShip1[0] + 8)
-        && scoreShip2[0] > (scoreNow[0] + 10) ) {
-        reserveTwoShip = scoreShip2[0] - scoreShip1[0];
+      scoreShipping2 = scoreProjection[player.index];
+      scoreShipping2[0] += shippingVP;
+      if(AILou.info) addLog('SHIPPING: AI scoreShipping2 num_'+ player.shipping +': ' + scoreShipping2);
+      if (scoreShipping2[0] > (scoreShipping1[0] + 8)
+        && scoreShipping2[0] > (scoreNow[0] + 10) ) {
+        reserveTwoShipping = scoreShipping2[0] - scoreShipping1[0];
       }
     }
     if (player.p > 0 && player.c > 3 && player.shipping < 3) {
       player.p--;
       player.c -= 4;
       player.shipping++;
-      shipVP = player.shipping+1;
+      shippingVP = player.shipping+1;
       scoreProjection = projectEndGameScores();
-      scoreShip3 = scoreProjection[player.index];
-      scoreShip3[0] += shipVP;
-      if(AILou.info) addLog('SHIP: AI scoreShip3 num_'+ player.shipping +': ' + scoreShip3);
-      if (scoreShip3[0] > (scoreShip2[0] + 10)
-        && scoreShip3[0] > (scoreShip1[0] + 12)
-        && scoreShip3[0] > (scoreNow[0] + 14)  ) {
-        reserveThreeShip = scoreShip3[0] - scoreShip2[0];
+      scoreShipping3 = scoreProjection[player.index];
+      scoreShipping3[0] += shippingVP;
+      if(AILou.info) addLog('SHIPPING: AI scoreShipping3 num_'+ player.shipping +': ' + scoreShipping3);
+      if (scoreShipping3[0] > (scoreShipping2[0] + 10)
+        && scoreShipping3[0] > (scoreShipping1[0] + 12)
+        && scoreShipping3[0] > (scoreNow[0] + 14)  ) {
+        reserveThreeShipping = scoreShipping3[0] - scoreShipping2[0];
       }
     }
-    reserveTotal = reserveOneShip + reserveTwoShip + reserveThreeShip;
+    reserveTotal = reserveOneShipping + reserveTwoShipping + reserveThreeShipping;
 
     //temporary to see if reserve is needed
     if (reserveTotal > 0) s.shipping += reserveTotal + 4;
@@ -1055,7 +1055,7 @@ AILou.prototype.scoreBonusTile_ = function(player, tile, roundnum) {
     score += s.c * 6;
     if(player.c < 8) score += 2;
   }
-  else if(tile == T_BON_3PW_SHIP) {
+  else if(tile == T_BON_3PW_SHIPPING) {
     AILou.ybonus = 4;
     score += s.pw * 3;
     if(roundnum < 3) score += getNumFreeTilesReachableByShipping(player, player.shipping + 1)[0] * 3;
@@ -1088,7 +1088,7 @@ AILou.prototype.scoreBonusTile_ = function(player, tile, roundnum) {
     AILou.ybonus = 9;
     score += s.p * 1;
   }
-  else if(tile == T_BON_PASSSHIPVP_3PW) {
+  else if(tile == T_BON_PASSSHIPPINGVP_3PW) {
     AILou.ybonus = 10;
     score += player.shipping * 3 + s.pw * 3;
   }
@@ -1099,32 +1099,32 @@ AILou.prototype.scoreBonusTile_ = function(player, tile, roundnum) {
   //Add starting preference score for the faction and the bonus tile
   var BONUS_PREF = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0],
-    [0,3,1,3,3,3,3,0,0,4,2,1,2,3,3, 3,4,1,1,2,-9], // T_BON_SPADE_2C     (BON1)
-    [0,0,2,1,2,1,4,0,1,2,1,0,3,3,0, 1,3,2,3,2,5],  // T_BON_CULT_4C      (BON2)
-    [0,0,2,2,3,1,1,0,1,3,1,0,1,1,0, 1,2,2,4,1,4],  // T_BON_6C           (BON3)
-    [0,2,3,0,0,1,1,1,1,6,1,5,6,1,0, 1,1,1,2,3,-9], // T_BON_3PW_SHIP     (BON4)
-    [0,3,2,1,1,2,2,4,3,0,1,0,4,3,3, 4,4,1,2,3,0],  // T_BON_3PW_1W       (BON5)
-    [0,0,2,1,5,2,1,1,1,1,2,0,2,1,1, 2,2,2,1,3,2],  // T_BON_PASSDVP_2C   (BON6)
-    [0,2,1,1,0,1,1,1,1,0,1,0,1,1,2, 1,0,1,1,1,0],  // T_BON_PASSTPVP_1W  (BON7)
-    [0,4,5,1,8,1,0,5,2,1,2,0,1,1,1, 3,1,1,4,4,0],  // T_BON_PASSSHSAVP_2W(BON8)
-    [0,2,1,3,1,0,2,3,5,1,2,0,1,1,1, 1,0,2,1,1,6],  // T_BON_1P           (BON9)
-    [0,0,1,0,0,1,1,1,1,2,1,0,1,0,0, 0,0,1,1,3,-2]  // T_BON_PASSSHIPVP_3PW(BON10)
+    [0,3,1,3,3,3,3,0,0,4,2,1,2,3,3, 3,4,1,1,2,-9], // T_BON_SPADE_2C          (BON1)
+    [0,0,2,1,2,1,4,0,1,2,1,0,3,3,0, 1,3,2,3,2,5],  // T_BON_CULT_4C           (BON2)
+    [0,0,2,2,3,1,1,0,1,3,1,0,1,1,0, 1,2,2,4,1,4],  // T_BON_6C                (BON3)
+    [0,2,3,0,0,1,1,1,1,6,1,5,6,1,0, 1,1,1,2,3,-9], // T_BON_3PW_SHIPPING      (BON4)
+    [0,3,2,1,1,2,2,4,3,0,1,0,4,3,3, 4,4,1,2,3,0],  // T_BON_3PW_1W            (BON5)
+    [0,0,2,1,5,2,1,1,1,1,2,0,2,1,1, 2,2,2,1,3,2],  // T_BON_PASSDVP_2C        (BON6)
+    [0,2,1,1,0,1,1,1,1,0,1,0,1,1,2, 1,0,1,1,1,0],  // T_BON_PASSTPVP_1W       (BON7)
+    [0,4,5,1,8,1,0,5,2,1,2,0,1,1,1, 3,1,1,4,4,0],  // T_BON_PASSSHSAVP_2W     (BON8)
+    [0,2,1,3,1,0,2,3,5,1,2,0,1,1,1, 1,0,2,1,1,6],  // T_BON_1P                (BON9)
+    [0,0,1,0,0,1,1,1,1,2,1,0,1,0,0, 0,0,1,1,3,-2]  // T_BON_PASSSHIPPINGVP_3PW(BON10)
     ];
   if(roundnum <= 1) score += BONUS_PREF[Math.floor(AILou.ybonus)][Math.floor(AILou.xfaction)];
 
   //Add middle preference score for the faction and the bonus tile
   var BONUS_PREF2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0],
-    [0,2,0,2,3,2,2,0,0,2,2,1,1,2,2, 3,3,0,0,1,-9], // T_BON_SPADE_2C     (BON1)
-    [0,2,0,2,2,2,2,0,0,2,1,0,1,2,0, 1,2,1,2,1,2],  // T_BON_CULT_4C      (BON2)
-    [0,0,2,1,3,0,0,0,0,0,0,0,0,0,0, 3,1,1,2,0,2],  // T_BON_6C           (BON3)
-    [0,1,1,0,0,0,0,2,0,1,0,2,3,0,0, 1,2,0,1,2,-9], // T_BON_3PW_SHIP     (BON4)
-    [0,1,1,0,1,1,1,2,1,0,0,0,2,1,1, 3,3,0,0,2,1],  // T_BON_3PW_1W       (BON5)
-    [0,1,1,1,2,2,1,1,2,2,2,0,2,1,1, 2,1,2,2,2,3],  // T_BON_PASSDVP_2C   (BON6)
-    [0,1,2,1,2,1,1,3,2,2,4,0,1,1,2, 1,1,1,1,1,0],  // T_BON_PASSTPVP_1W  (BON7)
-    [0,1,1,1,2,1,1,2,1,0,1,0,1,1,1, 0,1,0,0,0,1],  // T_BON_PASSSHSAVP_2W(BON8)
-    [0,1,0,1,1,1,1,1,3,0,0,0,0,0,1, 1,0,2,1,1,2],  // T_BON_1P           (BON9)
-    [0,1,0,0,0,0,0,0,1,4,0,0,1,0,0, 1,0,0,0,1,-2]  // T_BON_PASSSHIPVP_3PW(BON10)
+    [0,2,0,2,3,2,2,0,0,2,2,1,1,2,2, 3,3,0,0,1,-9], // T_BON_SPADE_2C          (BON1)
+    [0,2,0,2,2,2,2,0,0,2,1,0,1,2,0, 1,2,1,2,1,2],  // T_BON_CULT_4C           (BON2)
+    [0,0,2,1,3,0,0,0,0,0,0,0,0,0,0, 3,1,1,2,0,2],  // T_BON_6C                (BON3)
+    [0,1,1,0,0,0,0,2,0,1,0,2,3,0,0, 1,2,0,1,2,-9], // T_BON_3PW_SHIPPING      (BON4)
+    [0,1,1,0,1,1,1,2,1,0,0,0,2,1,1, 3,3,0,0,2,1],  // T_BON_3PW_1W            (BON5)
+    [0,1,1,1,2,2,1,1,2,2,2,0,2,1,1, 2,1,2,2,2,3],  // T_BON_PASSDVP_2C        (BON6)
+    [0,1,2,1,2,1,1,3,2,2,4,0,1,1,2, 1,1,1,1,1,0],  // T_BON_PASSTPVP_1W       (BON7)
+    [0,1,1,1,2,1,1,2,1,0,1,0,1,1,1, 0,1,0,0,0,1],  // T_BON_PASSSHSAVP_2W     (BON8)
+    [0,1,0,1,1,1,1,1,3,0,0,0,0,0,1, 1,0,2,1,1,2],  // T_BON_1P                (BON9)
+    [0,1,0,0,0,0,0,0,1,4,0,0,1,0,0, 1,0,0,0,1,-2]  // T_BON_PASSSHIPPINGVP_3PW(BON10)
     ];
   if(roundnum ==2 || roundnum == 3 )
     score += BONUS_PREF2[Math.floor(AILou.ybonus)][Math.floor(AILou.xfaction)]
@@ -1132,16 +1132,16 @@ AILou.prototype.scoreBonusTile_ = function(player, tile, roundnum) {
   //Add end preference score for the faction and the bonus tile
   var BONUS_PREF3 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0],
-    [0,0,0,1,0,0,0,0,0,1,2,0,1,0,1, 2,1,0,2,0,-9], // T_BON_SPADE_2C     (BON1)
-    [0,0,0,0,0,0,2,0,0,1,0,0,0,0,1, 0,2,0,0,0,2],  // T_BON_CULT_4C      (BON2)
-    [0,0,0,0,2,0,0,0,0,0,0,0,0,0,0, 2,1,0,0,0,2],  // T_BON_6C           (BON3)
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 1,1,0,0,1,-9], // T_BON_3PW_SHIP     (BON4)
-    [0,0,0,0,0,1,0,0,0,0,0,0,0,0,1, 3,1,0,0,3,-3], // T_BON_3PW_1W       (BON5)
-    [0,1,2,1,4,3,1,1,5,3,2,0,2,1,2, 3,2,2,3,2,5],  // T_BON_PASSDVP_2C   (BON6)
-    [0,1,2,1,2,1,1,4,3,2,4,0,1,1,2, 1,2,1,0,1,3],  // T_BON_PASSTPVP_1W  (BON7)
-    [0,1,2,0,5,0,1,3,2,1,2,0,1,1,1, 1,2,1,4,5,1],  // T_BON_PASSSHSAVP_2W(BON8)
-    [0,1,0,1,1,0,1,2,2,0,1,0,1,1,1, 1,0,2,0,1,2],  // T_BON_1P           (BON9)
-    [0,1,1,0,1,0,1,1,0,6,1,0,1,0,0, 1,1,0,0,3,-2]  // T_BON_PASSSHIPVP_3PW(BON10)
+    [0,0,0,1,0,0,0,0,0,1,2,0,1,0,1, 2,1,0,2,0,-9], // T_BON_SPADE_2C          (BON1)
+    [0,0,0,0,0,0,2,0,0,1,0,0,0,0,1, 0,2,0,0,0,2],  // T_BON_CULT_4C           (BON2)
+    [0,0,0,0,2,0,0,0,0,0,0,0,0,0,0, 2,1,0,0,0,2],  // T_BON_6C                (BON3)
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 1,1,0,0,1,-9], // T_BON_3PW_SHIPPING      (BON4)
+    [0,0,0,0,0,1,0,0,0,0,0,0,0,0,1, 3,1,0,0,3,-3], // T_BON_3PW_1W            (BON5)
+    [0,1,2,1,4,3,1,1,5,3,2,0,2,1,2, 3,2,2,3,2,5],  // T_BON_PASSDVP_2C        (BON6)
+    [0,1,2,1,2,1,1,4,3,2,4,0,1,1,2, 1,2,1,0,1,3],  // T_BON_PASSTPVP_1W       (BON7)
+    [0,1,2,0,5,0,1,3,2,1,2,0,1,1,1, 1,2,1,4,5,1],  // T_BON_PASSSHSAVP_2W     (BON8)
+    [0,1,0,1,1,0,1,2,2,0,1,0,1,1,1, 1,0,2,0,1,2],  // T_BON_1P                (BON9)
+    [0,1,1,0,1,0,1,1,0,6,1,0,1,0,0, 1,1,0,0,3,-2]  // T_BON_PASSSHIPPINGVP_3PW(BON10)
     ];
   if(roundnum >= 4) score += BONUS_PREF3[Math.floor(AILou.ybonus)][Math.floor(AILou.xfaction)]
 
@@ -1459,7 +1459,7 @@ AILou.prototype.scoreTownTile_ = function(player, tile, roundnum) {
     if (getpw > needpw) score = 0;
     if (checkTown(townSelected, tile)) score = 0;
   }
-  else if(tile == T_TW_4VP_SHIP) {
+  else if(tile == T_TW_4VP_SHIPPING) {
     score = 6;
     if(game.finalscoring == 3) score += 2;
     if(player.faction == F_FAKIRS) score += 4;
@@ -2088,8 +2088,8 @@ AILou.prototype.chooseFaction = function(playerIndex, callback) {
 //6. game.finalscoring = Most Settlements
 //7. game.players.length == 5
 //8. game.bonustiles = [T_BON_1P]
-//9. game.bonustiles = [T_BON_3PW_SHIP]
-//10. game.bonustiles = [T_BON_PASSSHIPVP_3PW]
+//9. game.bonustiles = [T_BON_3PW_SHIPPING]
+//10. game.bonustiles = [T_BON_PASSSHIPPINGVP_3PW]
 //11. game.bonustiles = [T_BON_PASSSHSAVP_2W]
 //12. game.bonustiles = [T_BON_PASSTPVP_1W]
 //13. game.bonustiles = [FireIceWorld]
@@ -2183,9 +2183,9 @@ AILou.prototype.scoreFaction_ = function(player, already, faction) {
   delta = START_FACTIONS[xfaction] [7];
   if (delta != 0 && game.bonustiles[T_BON_1P] ) result += delta;
   delta = START_FACTIONS[xfaction] [8];
-  if (delta != 0 && game.bonustiles[T_BON_3PW_SHIP]) result += delta;
+  if (delta != 0 && game.bonustiles[T_BON_3PW_SHIPPING]) result += delta;
   delta = START_FACTIONS[xfaction] [9];
-  if (delta != 0 && game.bonustiles[T_BON_PASSSHIPVP_3PW]) result += delta;
+  if (delta != 0 && game.bonustiles[T_BON_PASSSHIPPINGVP_3PW]) result += delta;
   delta = START_FACTIONS[xfaction] [10];
   if (delta != 0 && game.bonustiles[T_BON_PASSSHSAVP_2W]) result += delta;
   delta = START_FACTIONS[xfaction] [11];
@@ -2911,9 +2911,9 @@ AILou.scoreAction = function(player, actions, values, roundnum) {
       cult[action.cult] += 1;
     } else if(type == A_AUREN_CULT) {
       cult[action.cult] += 2;
-    } else if(type == A_ADV_SHIP) {
-      subtractIncome(res, player.getActionCost(A_ADV_SHIP));
-      res[4] += getAdvanceShipVP(player);
+    } else if(type == A_ADV_SHIPPING) {
+      subtractIncome(res, player.getActionCost(A_ADV_SHIPPING));
+      res[4] += getAdvanceShippingVP(player);
       shipping++;
     } else if(type == A_ADV_DIG) {
       subtractIncome(res, player.getActionCost(A_ADV_DIG));
@@ -3049,7 +3049,7 @@ AILou.scoreAction = function(player, actions, values, roundnum) {
     res[4] -= b_te * 2;
   }
   else if(player.bonustile == T_BON_PASSSHSAVP_2W) res[4] += (b_sh + b_sa) * 4;
-  else if(player.bonustile == T_BON_PASSSHIPVP_3PW) res[4] += shipping * 3;
+  else if(player.bonustile == T_BON_PASSSHIPPINGVP_3PW) res[4] += shipping * 3;
 
   //SH and SA round tiles
   if(getRoundTile() == T_ROUND_SHSA5VP_2F1W || getRoundTile() == T_ROUND_SHSA5VP_2A1W) {

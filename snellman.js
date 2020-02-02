@@ -42,13 +42,13 @@ var fromSnellmanTile = {
   'fav1' : T_FAV_3F, 'fav2' : T_FAV_3W, 'fav3' : T_FAV_3E, 'fav4' : T_FAV_3A, 'fav5' : T_FAV_2F_6TW,
   'fav6' : T_FAV_2W_CULT, 'fav7' : T_FAV_2E_1PW1W, 'fav8' : T_FAV_2A_4PW, 'fav9' : T_FAV_1F_3C,
   'fav10' : T_FAV_1W_TPVP, 'fav11' : T_FAV_1E_DVP, 'fav12' : T_FAV_1A_PASSTPVP,
-  'bon1' : T_BON_SPADE_2C, 'bon2' : T_BON_CULT_4C, 'bon3' : T_BON_6C, 'bon4' : T_BON_3PW_SHIP,
+  'bon1' : T_BON_SPADE_2C, 'bon2' : T_BON_CULT_4C, 'bon3' : T_BON_6C, 'bon4' : T_BON_3PW_SHIPPING,
   'bon5' : T_BON_3PW_1W, 'bon6' : T_BON_PASSSHSAVP_2W, 'bon7' : T_BON_PASSTPVP_1W, 'bon8' : T_BON_1P,
-  'bon9' : T_BON_PASSDVP_2C, 'bon10' : T_BON_PASSSHIPVP_3PW,
+  'bon9' : T_BON_PASSDVP_2C, 'bon10' : T_BON_PASSSHIPPINGVP_3PW,
   'score1' : T_ROUND_DIG2VP_1E1C, 'score2' : T_ROUND_TW5VP_4E1DIG, 'score3' : T_ROUND_D2VP_4W1P, 'score4' : T_ROUND_SHSA5VP_2F1W,
   'score5' : T_ROUND_D2VP_4F4PW, 'score6' : T_ROUND_TP3VP_4W1DIG, 'score7' : T_ROUND_SHSA5VP_2A1W, 'score8' : T_ROUND_TP3VP_4A1DIG,
   'tw1' : T_TW_5VP_6C, 'tw2' : T_TW_7VP_2W, 'tw3' : T_TW_9VP_P, 'tw4' : T_TW_6VP_8PW,
-  'tw5' : T_TW_8VP_CULT, 'tw6' : T_TW_2VP_2CULT, 'tw7' : T_TW_4VP_SHIP, 'tw8' : T_TW_11VP
+  'tw5' : T_TW_8VP_CULT, 'tw6' : T_TW_2VP_2CULT, 'tw7' : T_TW_4VP_SHIPPING, 'tw8' : T_TW_11VP
 };
 var toSnellmanTile = {};
 for(var tile in fromSnellmanTile) toSnellmanTile[fromSnellmanTile[tile]] = tile;
@@ -537,7 +537,7 @@ SnellmanActor.prototype.doAction = function(playerIndex, callback) {
     }
     else if(word == 'advance') {
       var track = words[i + 1];
-      if(track == 'ship' || track == 'shipping') result.push(new Action(A_ADV_SHIP));
+      if(track == 'shipping') result.push(new Action(A_ADV_SHIPPING));
       if(track == 'dig' || track == 'digging') result.push(new Action(A_ADV_DIG));
     }
     else if(word == 'pass') {

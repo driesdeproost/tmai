@@ -37,11 +37,11 @@ function isTownTile(tile) {
 }
 
 function isTownTilePromo2013Tile(tile) {
-  return tile == T_TW_2VP_2CULT || tile == T_TW_4VP_SHIP || tile == T_TW_11VP;
+  return tile == T_TW_2VP_2CULT || tile == T_TW_4VP_SHIPPING || tile == T_TW_11VP;
 }
 
 function isBonusTilePromo2013Tile(tile) {
-  return tile == T_BON_PASSSHIPVP_3PW;
+  return tile == T_BON_PASSSHIPPINGVP_3PW;
 }
 
 function isRoundTilePromo2015Tile(tile) {
@@ -131,13 +131,13 @@ function getTileIncome(tile) {
   if(tile == T_BON_SPADE_2C) return [2,0,0,0,0];
   else if(tile == T_BON_CULT_4C) return [4,0,0,0,0];
   else if(tile == T_BON_6C) return [6,0,0,0,0];
-  else if(tile == T_BON_3PW_SHIP) return [0,0,0,3,0];
+  else if(tile == T_BON_3PW_SHIPPING) return [0,0,0,3,0];
   else if(tile == T_BON_3PW_1W) return [0,1,0,3,0];
   else if(tile == T_BON_PASSDVP_2C) return [2,0,0,0,0];
   else if(tile == T_BON_PASSTPVP_1W) return [0,1,0,0,0];
   else if(tile == T_BON_PASSSHSAVP_2W) return [0,2,0,0,0];
   else if(tile == T_BON_1P) return [0,0,1,0,0];
-  else if(tile == T_BON_PASSSHIPVP_3PW) return [0,0,0,3,0];
+  else if(tile == T_BON_PASSSHIPPINGVP_3PW) return [0,0,0,3,0];
   else if(tile == T_FAV_2E_1PW1W) return [0,1,0,1,0];
   else if(tile == T_FAV_2A_4PW) return [0,0,0,4,0];
   else if(tile == T_FAV_1F_3C) return [3,0,0,0,0];
@@ -786,7 +786,7 @@ function addExtrasForAction(player, action) {
     }
     if(player.faction == F_SWARMLINGS) player.w += 3;
 
-    if(action.twtiles[i] == T_TW_4VP_SHIP) {
+    if(action.twtiles[i] == T_TW_4VP_SHIPPING) {
       if(player.faction == F_DWARVES) {
         // nothing
       }
@@ -869,8 +869,8 @@ function getCultPriests(player) {
 
 //this one does NOT fail and does not consume income. If you already have max shipping, it does nothing.
 function advanceShipping(player) {
-  if(!canAdvanceShip(player)) return;
-  player.addVP(getAdvanceShipVP(player), 'advance', 'advship');
+  if(!canAdvanceShipping(player)) return;
+  player.addVP(getAdvanceShippingVP(player), 'advance', 'advshipping');
   player.shipping++;
 }
 
@@ -913,8 +913,8 @@ function tryActionCore_(player, action /*Action object*/) {
   else if(isConvertAction(action)) {
     error = tryConversion(player, action);
   }
-  else if(action.type == A_ADV_SHIP) {
-    if(!canAdvanceShip(player)) return 'already max shipping';
+  else if(action.type == A_ADV_SHIPPING) {
+    if(!canAdvanceShipping(player)) return 'already max shipping';
     error = tryConsumeForAction(player, action.type);
     if(error != '') return error;
     advanceShipping(player);
@@ -1498,10 +1498,10 @@ function giveFavorTile(player, tile) {
   }
 }
 
-//For the cult or ship tiles, only returns the VP's.
+//For the cult or shipping tiles, only returns the VP's.
 function getTownTileResources(tile) {
   if(tile == T_TW_2VP_2CULT) return [0,0,0,0,2];
-  if(tile == T_TW_4VP_SHIP) return [0,0,0,0,4];
+  if(tile == T_TW_4VP_SHIPPING) return [0,0,0,0,4];
   if(tile == T_TW_5VP_6C) return [6,0,0,0,5];
   if(tile == T_TW_6VP_8PW) return [0,0,0,8,6];
   if(tile == T_TW_7VP_2W) return [0,2,0,0,7];
@@ -1557,10 +1557,10 @@ function giveBonusTile(player, tile) {
   if((tile > T_BON_BEGIN && tile < T_BON_END) || tile == T_NONE) {
     var oldtile = player.bonustile;
     if(shippingBonusTileWorks(player)) {
-      if(oldtile == T_BON_3PW_SHIP) {
+      if(oldtile == T_BON_3PW_SHIPPING) {
         player.bonusshipping--;
       }
-      if(tile == T_BON_3PW_SHIP) {
+      if(tile == T_BON_3PW_SHIPPING) {
         player.bonusshipping++;
       }
     }
@@ -2036,8 +2036,8 @@ function applyPassBonus(playerin, playerout) {
   if(playerin.bonustile == T_BON_PASSSHSAVP_2W) {
     playerout.addVP(built_sh(playerin) * 4 + built_sa(playerin) * 4, 'bonus', getTileVPDetail(T_BON_PASSSHSAVP_2W));
   }
-  if(playerin.bonustile == T_BON_PASSSHIPVP_3PW) {
-    playerout.addVP(playerin.shipping * 3, 'bonus', getTileVPDetail(T_BON_PASSSHIPVP_3PW));
+  if(playerin.bonustile == T_BON_PASSSHIPPINGVP_3PW) {
+    playerout.addVP(playerin.shipping * 3, 'bonus', getTileVPDetail(T_BON_PASSSHIPPINGVP_3PW));
   }
   if(playerin.favortiles[T_FAV_1A_PASSTPVP]) {
     var vp = [0,2,3,3,4][built_tp(playerin)];

@@ -971,7 +971,7 @@ function getPossibleActions(player, restrictions) {
   }
 
   //advance actions
-  if(canAdvanceShip(player)) addPossibleSimpleAction(player.getActionCost(A_ADV_SHIP), player, restrictions, A_ADV_SHIP, result);
+  if(canAdvanceShipping(player)) addPossibleSimpleAction(player.getActionCost(A_ADV_SHIPPING), player, restrictions, A_ADV_SHIPPING, result);
   if(canAdvanceDig(player)) addPossibleSimpleAction(player.getActionCost(A_ADV_DIG), player, restrictions, A_ADV_DIG, result);
 
   //priests to cults
