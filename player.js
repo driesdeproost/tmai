@@ -195,11 +195,11 @@ function getNumInitialDwellings(player) {
 }
 
 //the cost of advancing shipping, given you're still at the previous level
-function getAdvanceShipVP(player) {
+function getAdvanceShippingVP(player) {
   return player.faction == F_MERMAIDS ? player.shipping + 1 : player.shipping + 2;
 }
 
-function canAdvanceShip(player) {
+function canAdvanceShipping(player) {
   return player.shipping < player.maxshipping;
 }
 

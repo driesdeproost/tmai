@@ -433,7 +433,7 @@ function drawTownTile(px, py, tile, onTileClick) {
   var vp = 0;
   var text = '';
   if(tile == T_TW_2VP_2CULT) { vp = 2; text = 'cults2'; }
-  else if(tile == T_TW_4VP_SHIP) { vp = 4; text = 'ship/c'; }
+  else if(tile == T_TW_4VP_SHIPPING) { vp = 4; text = 'shipping/carpet'; }
   else if(tile == T_TW_5VP_6C) { vp = 5; text = '6c'; }
   else if(tile == T_TW_6VP_8PW) { vp = 6; text = '8pw'; }
   else if(tile == T_TW_7VP_2W) { vp = 7; text = '2w'; }
@@ -477,13 +477,13 @@ function drawBonusTile(px, py, tile, onTileClick) {
   if(tile == T_BON_SPADE_2C) { text1 = 'act:dig'; text2 = ''; text3 = '+2c';}
   else if(tile == T_BON_CULT_4C) { text1 = 'act:cult'; text2 = ''; text3 = '+4c'; }
   else if(tile == T_BON_6C) { text1 = ''; text2 = ''; text3 = '+6c'; }
-  else if(tile == T_BON_3PW_SHIP) { text1 = '+ship'; text2 = ''; text3 = '+3pw'; }
+  else if(tile == T_BON_3PW_SHIPPING) { text1 = '+shipping'; text2 = ''; text3 = '+3pw'; }
   else if(tile == T_BON_3PW_1W) { text1 = ''; text2 = '+1w'; text3 = '+3pw'; }
   else if(tile == T_BON_PASSDVP_2C) { text1 = 'pass:'; text2 = 'D 1vp'; text3 = '+2c'; }
   else if(tile == T_BON_PASSTPVP_1W) { text1 = 'pass:'; text2 = 'TP 2vp'; text3 = '+1w'; }
   else if(tile == T_BON_PASSSHSAVP_2W) { text1 = 'pass:'; text2 = 'S 4vp'; text3 = '+2w'; }
   else if(tile == T_BON_1P) { text1 = ''; text2 = ''; text3 = '+1p'; }
-  else if(tile == T_BON_PASSSHIPVP_3PW) { text1 = 'pass:'; text2 = 'shipvp'; text3 = '+3pw'; }
+  else if(tile == T_BON_PASSSHIPPINGVP_3PW) { text1 = 'pass:'; text2 = 'shippingvp'; text3 = '+3pw'; }
   return renderBonusTile(px, py, tile, text1, text2, text3, onTileClick);
 }
 
@@ -819,7 +819,7 @@ function drawPlayerPanel(px, py, player, scoreProjection) {
   if(player.maxdigging > 0) makeText(px, py + 120, 'digging: <b>' + player.digging + '</b> (' + player.digging + '/' + player.maxdigging + ') advcost: ' + costToString(player.getActionCost(A_ADV_DIG)), hudElement);
   else if(player.maxdigging == 0) makeText(px, py + 120, 'digging: 0/0', hudElement);
   else makeText(px, py + 120, 'digging: N/A', hudElement);
-  if(player.maxshipping > 0) makeText(px, py + 135, 'shipping: <b>' + getShipping(player, false) + '</b> (' + player.shipping + '/' + player.maxshipping + (player.bonusshipping ? ' + ' + player.bonusshipping : '') + ') advcost: ' + costToString(player.getActionCost(A_ADV_SHIP)), hudElement);
+  if(player.maxshipping > 0) makeText(px, py + 135, 'shipping: <b>' + getShipping(player, false) + '</b> (' + player.shipping + '/' + player.maxshipping + (player.bonusshipping ? ' + ' + player.bonusshipping : '') + ') advcost: ' + costToString(player.getActionCost(A_ADV_SHIPPING)), hudElement);
   else if(player.maxtunnelcarpetdistance > 0) makeText(px, py + 135, 'range: <b>' + player.tunnelcarpetdistance + '/' + player.maxtunnelcarpetdistance, hudElement);
   else if(player.maxshipping == 0) makeText(px, py + 135, 'shipping: 0/0', hudElement);
   else makeText(px, py + 135, 'shipping: N/A', hudElement);
@@ -996,7 +996,7 @@ function drawSummary(px, py, playerIndex) {
       dangerColor(player.b_tp == 0, (4 - player.b_tp) + '/4 TP') + ', ' +
       dangerColor(player.b_te == 0, (3 - player.b_te) + '/3 TE') + ', ' +
       (1 - player.b_sh) + '/1 SH, ' + (1 - player.b_sa) + '/1 SA' + '</b>', parent);
-  var advancetext = 'dig: ' + player.digging + ', ship: ' + player.shipping;
+  var advancetext = 'dig: ' + player.digging + ', shipping: ' + player.shipping;
   if(player.maxtunnelcarpetdistance > 0) advancetext += ', range: ' + player.tunnelcarpetdistance;
   makeText(px, py + 48, 'Advances: <b>' + advancetext + '</b>', parent);
   var income = getIncome(player, player.passed /*display bonus tile income only when passed*/, state.round);
@@ -1289,7 +1289,7 @@ function drawPlayerActions(px, py, playerIndex, parent /*parent DOM element*/) {
 
   makeText(px, py + 80, 'ADVANCE: ', parent);
   if(player.digging < player.maxdigging) addSimpleActionButton(px + 90, py + 80, getActionName(A_ADV_DIG), A_ADV_DIG);
-  if(player.shipping < player.maxshipping) addSimpleActionButton(px + ((player.digging < player.maxdigging) ? 170 : 90), py + 80, getActionName(A_ADV_SHIP), A_ADV_SHIP);
+  if(player.shipping < player.maxshipping) addSimpleActionButton(px + ((player.digging < player.maxdigging) ? 170 : 90), py + 80, getActionName(A_ADV_SHIPPING), A_ADV_SHIPPING);
 
   var px2;
 

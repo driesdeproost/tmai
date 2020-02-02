@@ -438,7 +438,7 @@ AILode.prototype.scoreBonusTile_ = function(player, tile, roundnum) {
     score += s.c * 6;
     if(player.c < 8) score += 2;
   }
-  else if(tile == T_BON_3PW_SHIP) {
+  else if(tile == T_BON_3PW_SHIPPING) {
     score += s.pw * 3;
     score += getNumFreeTilesReachableByShipping(player, player.shipping + 1)[0] * 3;
     if(roundnum < 3 && player.faction != F_NOMADS && player.faction != F_HALFLINGS) score++; //TODO what is the value of shipping?
@@ -465,7 +465,7 @@ AILode.prototype.scoreBonusTile_ = function(player, tile, roundnum) {
   else if(tile == T_BON_1P) {
     score += s.p * 1;
   }
-  else if(tile == T_BON_PASSSHIPVP_3PW) {
+  else if(tile == T_BON_PASSSHIPPINGVP_3PW) {
     score += player.shipping * 3 + s.pw * 3;
   }
 
@@ -551,7 +551,7 @@ AILode.prototype.scoreTownTile_ = function(player, tile, roundnum) {
     //TODO: calculate if increasing all cults is benificial and give better score based on that
     score++;
   }
-  else if(tile == T_TW_4VP_SHIP) {
+  else if(tile == T_TW_4VP_SHIPPING) {
     if(player.faction != F_DWARVES) score += 2;
   }
   else if(tile == T_TW_5VP_6C) {
@@ -1119,9 +1119,9 @@ AILode.scoreAction = function(player, actions, values, roundnum) {
       cult[action.cult] += 1;
     } else if(type == A_AUREN_CULT) {
       cult[action.cult] += 2;
-    } else if(type == A_ADV_SHIP) {
-      subtractIncome(res, player.getActionCost(A_ADV_SHIP));
-      res[4] += getAdvanceShipVP(player);
+    } else if(type == A_ADV_SHIPPING) {
+      subtractIncome(res, player.getActionCost(A_ADV_SHIPPING));
+      res[4] += getAdvanceShippingVP(player);
       shipping++;
     } else if(type == A_ADV_DIG) {
       subtractIncome(res, player.getActionCost(A_ADV_DIG));

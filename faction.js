@@ -101,7 +101,7 @@ Faction.prototype.getTransformActionCost = function(player, actiontype, fromcolo
 
 // For several other actions (TODO: eventually get almost all actions here except those whose cost depends on something else than action type and player object)
 Faction.prototype.getActionCost = function(player, actiontype) {
-  if(actiontype == A_ADV_SHIP) return [4,0,1,0,0];
+  if(actiontype == A_ADV_SHIPPING) return [4,0,1,0,0];
   if(actiontype == A_ADV_DIG) return [5,2,1,0,0];
   if(actiontype == A_POWER_BRIDGE) return [0,0,0,3,0];
   if(actiontype == A_POWER_1P) return [0,0,0,3,0];

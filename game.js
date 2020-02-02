@@ -353,22 +353,22 @@ function startBeginnerGameButtonFun(params) {
     game.bonustiles[T_BON_PASSDVP_2C] = 0;
     game.bonustiles[T_BON_PASSTPVP_1W] = 0;
     game.bonustiles[T_BON_1P] = 0;
-    game.bonustiles[T_BON_PASSSHIPVP_3PW] = 0;
+    game.bonustiles[T_BON_PASSSHIPPINGVP_3PW] = 0;
   }
   else if(game.players.length == 3) {
     game.bonustiles[T_BON_CULT_4C] = 0;
     game.bonustiles[T_BON_PASSDVP_2C] = 0;
     game.bonustiles[T_BON_PASSTPVP_1W] = 0;
-    game.bonustiles[T_BON_PASSSHIPVP_3PW] = 0;
+    game.bonustiles[T_BON_PASSSHIPPINGVP_3PW] = 0;
   }
   else if(game.players.length == 4) {
     game.bonustiles[T_BON_PASSDVP_2C] = 0;
     game.bonustiles[T_BON_PASSTPVP_1W] = 0;
-    game.bonustiles[T_BON_PASSSHIPVP_3PW] = 0;
+    game.bonustiles[T_BON_PASSSHIPPINGVP_3PW] = 0;
   }
   else if(game.players.length == 5) {
     game.bonustiles[T_BON_PASSDVP_2C] = 0;
-    game.bonustiles[T_BON_PASSSHIPVP_3PW] = 0;
+    game.bonustiles[T_BON_PASSSHIPPINGVP_3PW] = 0;
   }
 
   //beginner game round tiles

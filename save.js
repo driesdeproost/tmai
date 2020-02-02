@@ -709,9 +709,9 @@ function deSerializeGameStateNewFormat(text) {
     if(player.faction == F_FAKIRS) {
       player.tunnelcarpetdistance = 1;
       if(built_sh(player)) player.tunnelcarpetdistance++;
-      if(player.towntiles[T_TW_4VP_SHIP]) player.tunnelcarpetdistance += player.towntiles[T_TW_4VP_SHIP];
+      if(player.towntiles[T_TW_4VP_SHIPPING]) player.tunnelcarpetdistance += player.towntiles[T_TW_4VP_SHIPPING];
     }
-    player.bonusshipping = player.bonustile == T_BON_3PW_SHIP ? 1 : 0;
+    player.bonusshipping = player.bonustile == T_BON_3PW_SHIPPING ? 1 : 0;
 
     index++;
   }
@@ -741,7 +741,7 @@ function deSerializeGameStateLegacyFormat(text) {
       F_MERMAIDS, F_SWARMLINGS, F_AUREN, F_WITCHES, F_ENGINEERS, F_DWARVES];
   // without the new bonus tiles etc..., these make the numbers differ from the old format
   var legacytilesorig = [
-      T_NONE, 0, 0, T_BON_SPADE_2C/*3*/, T_BON_CULT_4C, T_BON_6C, T_BON_3PW_SHIP,
+      T_NONE, 0, 0, T_BON_SPADE_2C/*3*/, T_BON_CULT_4C, T_BON_6C, T_BON_3PW_SHIPPING,
       T_BON_3PW_1W, T_BON_PASSDVP_2C, T_BON_PASSTPVP_1W, T_BON_PASSSHSAVP_2W,
       T_BON_1P /*11*/, 0, 0, T_FAV_3F/*14*/, T_FAV_3W, T_FAV_3E, T_FAV_3A,
       T_FAV_2F_6TW, T_FAV_2W_CULT, T_FAV_2E_1PW1W, T_FAV_2A_4PW, T_FAV_1F_3C,
@@ -753,7 +753,7 @@ function deSerializeGameStateLegacyFormat(text) {
   // This is how they were after the promo
   var legacytilespromo = legacytilesorig.slice(0); // The last TW now is 35 instead of 32, and ROUND now goes from 38 to 45.
   legacytilespromo.splice(28, 0, T_TW_2VP_2CULT);
-  legacytilespromo.splice(29, 0, T_TW_4VP_SHIP);
+  legacytilespromo.splice(29, 0, T_TW_4VP_SHIPPING);
   legacytilespromo.splice(35, 0, T_TW_11VP);
   var legacyoctogons = [A_NONE, 0, A_POWER_BRIDGE, A_POWER_1P, A_POWER_2W, A_POWER_7C,
       A_POWER_SPADE, A_POWER_2SPADE, A_BONUS_SPADE, A_BONUS_CULT, A_FAVOR_CULT, 0,

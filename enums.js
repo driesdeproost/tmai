@@ -188,7 +188,7 @@ var A_BONUS_CULT = A_index++;
 var A_FAVOR_CULT = A_index++;
 var A_AUREN_CULT = A_index++; //2 cult advances
 //Advance
-var A_ADV_SHIP = A_index++;
+var A_ADV_SHIPPING = A_index++;
 var A_ADV_DIG = A_index++;
 var A_SHIFT = A_index++;
 var A_SHIFT2 = A_index++;
@@ -250,7 +250,7 @@ function getActionCodeName(type) {
     case A_BONUS_CULT: return 'boncult';
     case A_FAVOR_CULT: return 'favcult';
     case A_AUREN_CULT: return 'aurencult2';
-    case A_ADV_SHIP: return 'advshipping';
+    case A_ADV_SHIPPING: return 'advshipping';
     case A_ADV_DIG: return 'advdigging';
     case A_SHIFT: return 'shift_pw'; //shift with 3 or 5 regular power cost
     case A_SHIFT2: return 'shift_pt'; //shift with 3 or 5 power tokens cost
@@ -286,13 +286,13 @@ var T_BON_BEGIN = T_index++;
 var T_BON_SPADE_2C = T_index++;
 var T_BON_CULT_4C = T_index++;
 var T_BON_6C = T_index++;
-var T_BON_3PW_SHIP = T_index++;
+var T_BON_3PW_SHIPPING = T_index++;
 var T_BON_3PW_1W = T_index++;
 var T_BON_PASSDVP_2C = T_index++;
 var T_BON_PASSTPVP_1W = T_index++;
 var T_BON_PASSSHSAVP_2W = T_index++;
 var T_BON_1P = T_index++;
-var T_BON_PASSSHIPVP_3PW = T_index++; //bonus tile promo 2013
+var T_BON_PASSSHIPPINGVP_3PW = T_index++; //bonus tile promo 2013
 var T_BON_END = T_index++;
 var T_FAV_BEGIN = T_index++;
 var T_FAV_3F = T_index++;
@@ -310,7 +310,7 @@ var T_FAV_1A_PASSTPVP = T_index++;
 var T_FAV_END = T_index++;
 var T_TW_BEGIN = T_index++;
 var T_TW_2VP_2CULT = T_index++; //town tile promo 2013
-var T_TW_4VP_SHIP = T_index++; //town tile promo 2013
+var T_TW_4VP_SHIPPING = T_index++; //town tile promo 2013
 var T_TW_5VP_6C = T_index++;
 var T_TW_6VP_8PW = T_index++;
 var T_TW_7VP_2W = T_index++;
@@ -340,13 +340,13 @@ function getTileCodeName(tile) {
   if(tile == T_BON_SPADE_2C) return 'BONspade';
   if(tile == T_BON_CULT_4C) return 'BONcult';
   if(tile == T_BON_6C) return 'BON6c';
-  if(tile == T_BON_3PW_SHIP) return 'BONship';
+  if(tile == T_BON_3PW_SHIPPING) return 'BONshipping';
   if(tile == T_BON_3PW_1W) return 'BON3pw1w';
   if(tile == T_BON_PASSDVP_2C) return 'BONdvp';
   if(tile == T_BON_PASSTPVP_1W) return 'BONtpvp';
   if(tile == T_BON_PASSSHSAVP_2W) return 'BONsvp';
   if(tile == T_BON_1P) return 'BON1p';
-  if(tile == T_BON_PASSSHIPVP_3PW) return 'BONshipvp';
+  if(tile == T_BON_PASSSHIPPINGVP_3PW) return 'BONshippingvp';
   if(tile == T_FAV_3F) return 'FAV3F';
   if(tile == T_FAV_3W) return 'FAV3W';
   if(tile == T_FAV_3E) return 'FAV3E';
@@ -360,7 +360,7 @@ function getTileCodeName(tile) {
   if(tile == T_FAV_1E_DVP) return 'FAVdvp';
   if(tile == T_FAV_1A_PASSTPVP) return 'FAVptpvp';
   if(tile == T_TW_2VP_2CULT) return 'TW2';
-  if(tile == T_TW_4VP_SHIP) return 'TW4';
+  if(tile == T_TW_4VP_SHIPPING) return 'TW4';
   if(tile == T_TW_5VP_6C) return 'TW5';
   if(tile == T_TW_6VP_8PW) return 'TW6';
   if(tile == T_TW_7VP_2W) return 'TW7';
@@ -383,7 +383,7 @@ function getTileVPDetail(tile) {
   if(tile == T_BON_PASSDVP_2C) return 'bonus pass d';
   if(tile == T_BON_PASSTPVP_1W) return 'bonus pass tp';
   if(tile == T_BON_PASSSHSAVP_2W) return 'bonus pass sh/sa';
-  if(tile == T_BON_PASSSHIPVP_3PW) return 'bonus pass ship';
+  if(tile == T_BON_PASSSHIPPINGVP_3PW) return 'bonus pass shipping';
   if(tile == T_FAV_1W_TPVP) return 'favor tp';
   if(tile == T_FAV_1E_DVP) return 'favor d';
   if(tile == T_FAV_1A_PASSTPVP) return 'favor pass tp';
@@ -420,13 +420,13 @@ function tileToStringLong(tile, prefix) {
   else if(tile == T_BON_SPADE_2C) result += 'dig 2c';
   else if(tile == T_BON_CULT_4C) result += 'cult 4c';
   else if(tile == T_BON_6C) result += '6c';
-  else if(tile == T_BON_3PW_SHIP) result += '3pw ship';
+  else if(tile == T_BON_3PW_SHIPPING) result += '3pw shipping';
   else if(tile == T_BON_3PW_1W) result += '3pw 1w';
   else if(tile == T_BON_PASSDVP_2C) result += 'pass:d=1vp 2c';
   else if(tile == T_BON_PASSTPVP_1W) result += 'pass:tp=2vp 1w';
   else if(tile == T_BON_PASSSHSAVP_2W) result += 'pass:sh/sa=4vp 2w';
   else if(tile == T_BON_1P) result += '1p';
-  else if(tile == T_BON_PASSSHIPVP_3PW) result += 'pass:ship=3vp 3pw';
+  else if(tile == T_BON_PASSSHIPPINGVP_3PW) result += 'pass:shipping=3vp 3pw';
   else if(tile == T_FAV_3F) result += '3F';
   else if(tile == T_FAV_3W) result += '3W';
   else if(tile == T_FAV_3E) result += '3E';
@@ -440,7 +440,7 @@ function tileToStringLong(tile, prefix) {
   else if(tile == T_FAV_1E_DVP) result += '1E dvp';
   else if(tile == T_FAV_1A_PASSTPVP) result += '1A pass: tp [0,2,3,3,4] vp';
   else if(tile == T_TW_2VP_2CULT) result += '2vp 4cults2 2key';
-  else if(tile == T_TW_4VP_SHIP) result += '4vp +ship/carpet';
+  else if(tile == T_TW_4VP_SHIPPING) result += '4vp +shipping/carpet';
   else if(tile == T_TW_5VP_6C) result += '5vp 6c';
   else if(tile == T_TW_6VP_8PW) result += '6vp 8pw';
   else if(tile == T_TW_7VP_2W) result += '7vp 2w';
@@ -474,13 +474,13 @@ function tileToHelpString(tile, prefix) {
   else if(tile == T_BON_SPADE_2C) result += 'free spade action + 2c income';
   else if(tile == T_BON_CULT_4C) result += 'free cult action + 4c income';
   else if(tile == T_BON_6C) result += '6c income';
-  else if(tile == T_BON_3PW_SHIP) result += '3pw income + temporary shiping distance increase';
+  else if(tile == T_BON_3PW_SHIPPING) result += '3pw income + temporary shiping distance increase';
   else if(tile == T_BON_3PW_1W) result += '3pw + 1w income';
   else if(tile == T_BON_PASSDVP_2C) result += '1vp per d when passing + 2c income';
   else if(tile == T_BON_PASSTPVP_1W) result += '2vp per tp when passing + 1w income';
   else if(tile == T_BON_PASSSHSAVP_2W) result += '4vp per sh/sa when passing + 2w income';
   else if(tile == T_BON_1P) result += '1p income';
-  else if(tile == T_BON_PASSSHIPVP_3PW) result += '3vp per ship level when passing + 3pw income';
+  else if(tile == T_BON_PASSSHIPPINGVP_3PW) result += '3vp per shipping level when passing + 3pw income';
   else if(tile == T_FAV_3F) result += '3 fire cult';
   else if(tile == T_FAV_3W) result += '3 water cult';
   else if(tile == T_FAV_3E) result += '3 earth cult';
@@ -494,7 +494,7 @@ function tileToHelpString(tile, prefix) {
   else if(tile == T_FAV_1E_DVP) result += '1 earth cult + 2vp when building d';
   else if(tile == T_FAV_1A_PASSTPVP) result += '1 air cult + [2,3,3,4] vp for [1,2,3,4] tp when passing';
   else if(tile == T_TW_2VP_2CULT) result += '2vp + advance each cult twice + 2 instead of 1 town keys';
-  else if(tile == T_TW_4VP_SHIP) result += '4vp + free shiping advance (for fakirs: 1 extra carpet distance)';
+  else if(tile == T_TW_4VP_SHIPPING) result += '4vp + free shipping advance (for fakirs: 1 extra carpet distance)';
   else if(tile == T_TW_5VP_6C) result += '5vp + 6c';
   else if(tile == T_TW_6VP_8PW) result += '6vp + 8pw';
   else if(tile == T_TW_7VP_2W) result += '7vp + 2w';
